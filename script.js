@@ -109,19 +109,21 @@ if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     spanTime()
     score +=10
     console.log(score)
-    currentQuestion++
-    renderQuestion();
+   
 }
-if (event.target.innerText === !questions[currentQuestion].correctAnswer)  {
+if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
-    answer.textContent = "Wrong!"
+    answer.textContent = "Wrong!";
     timer -=5
-    currentQuestion++
-    renderQuestion();
-    spanTime()
+    
+    spanTime();
+    
 
 }
-
+if (answer.style.visibility = "visible"){
+    currentQuestion++;
+    renderQuestion();
+}
 })
 
 // incriment the number for currentQuestion when button pressed to render the next question
