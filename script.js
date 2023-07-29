@@ -10,6 +10,7 @@ let questionButton3 = document.querySelector("#answer3");
 let questionButton4 = document.querySelector("#answer4");
 let h2El = document.querySelector("#question");
 let h1El = document.querySelector("#start");
+let countdown = document.querySelector("#countdown")
 
 
 // will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
@@ -39,12 +40,21 @@ init.addEventListener("click", function(event){
     questionButton3.style.visibility = "visible"
     questionButton4.style.visibility = "visible"
     renderQuestion();
+    startTimer();
     currentQuestion ++
     }
     
     
     })
-   
+   function startTimer (){
+    timeId = setInterval(function(){
+        timer -- ;
+        countdown.textContent = timer;
+
+
+    }, 1000)
+
+   }
 
 
 
@@ -64,9 +74,9 @@ function renderQuestion(){
 // going to have to change something about this so that it displays all available answer choices but one of them is linked to the correct answer because this function is being called to render the page for the next question, so currently choice 4 will always be the correct answer. maybe using random numbers, idk will have to think about this further
 h2El.textContent = (questions[currentQuestion].question);
 questionButton1.textContent = (questions[currentQuestion].answers[0]);
-questionButton2.textContent = (questions[currentQuestion].answers[2]);
-questionButton3.textContent = (questions[currentQuestion].answers[3]);
-questionButton4.textContent = (questions[currentQuestion].correctAnswer);
+questionButton2.textContent = (questions[currentQuestion].answers[1]);
+questionButton3.textContent = (questions[currentQuestion].answers[2]);
+questionButton4.textContent = (questions[currentQuestion].answers[3]);
 
 }
 
@@ -106,15 +116,3 @@ if(event.target.matches("button")){
 
 
 // function to start timer countdown. Will have to change the h4 below to whichever html element the timer ends up being
-function startTimer(){
-    timeId = setInterval(function(){
-                timer--;
-                h4El.textContent = timer;
-        
-              
-        
-        
-            },1000)
-
-
-}
