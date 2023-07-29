@@ -13,6 +13,7 @@ let h2El = document.querySelector("#question");
 let h1El = document.querySelector("#start");
 let countdown = document.querySelector("#countdown")
 let answer = document.querySelector("#correct")
+let score = 0;
 
 
 // will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
@@ -99,19 +100,26 @@ if(event.target.matches("button")){
     
     console.log("value: " + event.target.innerText);
     console.log("Correct Answer: " + questions[currentQuestion].correctAnswer);
-    currentQuestion++
-    renderQuestion();
+    
+    
 }
 if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     answer.style.visibility = "visible";
     answer.textContent = "Correct"
     spanTime()
+    score +=10
+    console.log(score)
+    currentQuestion++
+    renderQuestion();
 }
-if (event.target.innerText !== questions[currentQuestion].correctAnswer) {
+if (event.target.innerText === !questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
     answer.textContent = "Wrong!"
     timer -=5
+    currentQuestion++
+    renderQuestion();
     spanTime()
+
 }
 
 })
