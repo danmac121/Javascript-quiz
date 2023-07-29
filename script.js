@@ -41,7 +41,7 @@ init.addEventListener("click", function(event){
     questionButton4.style.visibility = "visible"
     renderQuestion();
     startTimer();
-    currentQuestion ++
+    
     }
     
     
@@ -85,11 +85,11 @@ quizDiv.addEventListener("click", function(event){
 if(event.target.matches("button")){
     console.log("clicked")
     // to check if answer clicked was correct answer check if value is the same as correct answer
-    renderQuestion();
+    
     console.log("value: " + event.target.innerText);
     console.log("Correct Answer: " + questions[currentQuestion].correctAnswer);
     currentQuestion++
-
+    renderQuestion();
 }
 
 
