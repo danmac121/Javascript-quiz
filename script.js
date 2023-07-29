@@ -1,5 +1,6 @@
 let timer = 60;
 let timeId;
+let spanTimeout = 5;
 let currentQuestion = 0
 let init = document.querySelector("#init");
 let quizDiv = document.querySelector("#quiz");
@@ -11,6 +12,7 @@ let questionButton4 = document.querySelector("#answer4");
 let h2El = document.querySelector("#question");
 let h1El = document.querySelector("#start");
 let countdown = document.querySelector("#countdown")
+let answer = document.querySelector("#correct")
 
 
 // will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
@@ -19,12 +21,13 @@ let countdown = document.querySelector("#countdown")
 initialize()
 function initialize(){
     h1El.textContent = ("Press the start button to begin the quiz.");
-    init.textContent = ("Start")
-    h2El.style.visibility = "hidden"
-    questionButton2.style.visibility = "hidden"
-    questionButton3.style.visibility = "hidden"
-    questionButton4.style.visibility = "hidden"
+    init.textContent = ("Start");
+    h2El.style.visibility = "hidden";
+    questionButton2.style.visibility = "hidden";
+    questionButton3.style.visibility = "hidden";
+    questionButton4.style.visibility = "hidden";
     questionButton1.style.visibility = "hidden";
+    correct.style.visibility = "hidden";
 
 }
 init.addEventListener("click", function(event){
@@ -56,7 +59,15 @@ init.addEventListener("click", function(event){
 
    }
 
+   function spanTime (){
+    timeId = setInterval(function(){
+        timer -- ;
+        answer.style.visibility = "hidden"
 
+
+    }, 3000)
+
+   }
 
 
         // something about the initialize function or the event listener above is causing the current question to ++, needs re-structuring. added a blank line below for quick fix, will get dinged if left as is 
@@ -67,7 +78,7 @@ let questions = [
                  {question:"Who is Dan's favorite friend?", answers:["sean", "ben", "timmy", "joe"], correctAnswer:"ben"}   
 ]
 
-// structure: questions, the global variable which is made up of several arrays, we take questions at the index 0, the first array, and grab the question obj there. that is the first line in this sequence. The first array contains 3 obj, question, answer and correct answer. to print the available answers, we look at the first array in the questions variable [0], then look for the obj answers, which is an array, and we look for the answers at given indexes, 0,2,and 3 because there are 4 answers, but the second object in the array[1] is also equal to the correct answer obj. 
+// structure: questions, the global variable which is made up of several arrays, we take questions at the index 0, the first array, and grab the question obj there. that is the first line in this sequence. The first array contains 3 obj, question, answer and correct answer. to print the available answers, we look at the first array in the questions variable [0], then look for the obj answers, which is an array, and we look for the answers at given indexes 
 // renderQuestion();
 // have to call renderQuestion after questions variable is defined or text content displays empty
 function renderQuestion(){
@@ -91,7 +102,17 @@ if(event.target.matches("button")){
     currentQuestion++
     renderQuestion();
 }
-
+if (event.target.innerText === questions[currentQuestion].correctAnswer) {
+    answer.style.visibility = "visible";
+    answer.textContent = "Correct"
+    spanTime()
+}
+if (event.target.innerText !== questions[currentQuestion].correctAnswer) {
+    answer.style.visibility = "visible";
+    answer.textContent = "Wrong!"
+    timer -=5
+    spanTime()
+}
 
 })
 
