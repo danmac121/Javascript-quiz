@@ -14,6 +14,8 @@ let h1El = document.querySelector("#start");
 let countdown = document.querySelector("#countdown")
 let answer = document.querySelector("#correct")
 let score = 0;
+let end = document.querySelector("#quizEnd")
+let buttons = document.querySelector("#buttons")
 
 
 // will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
@@ -29,6 +31,7 @@ function initialize(){
     questionButton4.style.visibility = "hidden";
     questionButton1.style.visibility = "hidden";
     correct.style.visibility = "hidden";
+    end.style.visibility = "hidden";
 
 }
 init.addEventListener("click", function(event){
@@ -92,7 +95,7 @@ questionButton4.textContent = (questions[currentQuestion].answers[3]);
 
 }
 
-quizDiv.addEventListener("click", function(event){
+buttons.addEventListener("click", function(event){
 
 if(event.target.matches("button")){
     console.log("clicked")
@@ -109,7 +112,7 @@ if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     spanTime()
     score +=10
     console.log(score)
-   
+   localStorage.setItem("score:", JSON.stringify(score))
 }
 if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
@@ -124,11 +127,19 @@ if (answer.style.visibility = "visible"){
     currentQuestion++;
     renderQuestion();
 }
+if (timer === 0){
+
+}
 })
 
 // incriment the number for currentQuestion when button pressed to render the next question
 
+function quizEnd (){
+    end.style.visibility = "visible";
 
+
+
+}
 
 
 
