@@ -157,13 +157,32 @@ function timeCheck(){
 function quizEnd (){
     initial.style.visibility = "hidden";
     quizDiv.style.visibility = "hidden";
+    countdown.style.visibility = "hidden";
     end.style.visibility = "visible";
-    finalScore.textContent = score;
-
+    h2El.style.visibility = "hidden";
+    questionButton2.style.visibility = "hidden";
+    questionButton3.style.visibility = "hidden";
+    questionButton4.style.visibility = "hidden";
+    questionButton1.style.visibility = "hidden";
+    correct.style.visibility = "hidden";
+    finalScore.textContent ="Your Score: " + score;
+    submit.textContent = "Submit"
+    let userName = document.getElementById('name').value
+    localStorage.setItem("Name:", JSON.stringify(userName))
 
 }
 
+submit.addEventListener("click", function(event){
 
+    if(event.target.matches("button")){
+        let userName = document.getElementById('name').value
+        localStorage.setItem("Name:", JSON.stringify(userName))
+        
+    
+    }
+    document.location.href = "highScores.html";
+    
+    })
 
 
 
