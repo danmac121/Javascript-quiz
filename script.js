@@ -1,4 +1,4 @@
-let timer = 60;
+let timer = 10;
 let timeId;
 let spanTimeout = 5;
 let currentQuestion = 0
@@ -9,13 +9,16 @@ let questionButton1 = document.querySelector("#answer1");
 let questionButton2 = document.querySelector("#answer2");
 let questionButton3 = document.querySelector("#answer3");
 let questionButton4 = document.querySelector("#answer4");
-let h2El = document.querySelector("#question");
 let h1El = document.querySelector("#start");
+let h2El = document.querySelector("#question");
+let h3El = document.querySelector("#done")
 let countdown = document.querySelector("#countdown")
 let answer = document.querySelector("#correct")
 let score = 0;
 let end = document.querySelector("#quizEnd")
 let buttons = document.querySelector("#buttons")
+let finalScore = document.querySelector("#finalScore")
+let submit = document.querySelector("#submit")
 
 
 // will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
@@ -32,7 +35,7 @@ function initialize(){
     questionButton1.style.visibility = "hidden";
     correct.style.visibility = "hidden";
     end.style.visibility = "hidden";
-
+    
 }
 init.addEventListener("click", function(event){
 
@@ -53,15 +56,26 @@ init.addEventListener("click", function(event){
     
     
     })
-   function startTimer (){
-    timeId = setInterval(function(){
-        timer -- ;
-        countdown.textContent = timer;
 
+function updateTimerDisplay(timer) {
+    document.getElementById('countdown').textContent = timer;
+}
 
-    }, 1000)
+function startTimer() {
+    timer
+    updateTimerDisplay(timer);
 
-   }
+    let intervalId = setInterval(() => {
+        timer--;
+        updateTimerDisplay(timer);
+
+        if (timer <= 0) {
+            clearInterval(intervalId); 
+            quizEnd(); 
+        }
+    }, 1000); 
+}
+
 
    function spanTime (){
     timeId = setInterval(function(){
@@ -69,18 +83,18 @@ init.addEventListener("click", function(event){
         answer.style.visibility = "hidden"
 
 
-    }, 3000)
-
-   }
-
+    }, 3000)}
+   
 
         // something about the initialize function or the event listener above is causing the current question to ++, needs re-structuring. added a blank line below for quick fix, will get dinged if left as is 
 let questions = [
-                {question:"What is Dan's favorite color?", answers:["red", "blue", "purple", "gold"], correctAnswer:"blue"},
-                 {question:"What is Dan's favorite game?", answers:["Squad", "Minecraft", "Battle Bit", "Ready or Not"], correctAnswer:"Minecraft"},
-                 {question:"What is Dan's favorite hobby?", answers:["piano", "reading", "chess", "video games"], correctAnswer:"video games"},
-                 {question:"Who is Dan's favorite friend?", answers:["sean", "ben", "timmy", "joe"], correctAnswer:"ben"}   
+                {question:"Who named the city of Philadelphia?", answers:["William Penn", "George Washington", "Henry Hudson", "Leif Erikson"], correctAnswer:"William Penn"},
+                 {question:"What year was Philadelphia established as the capital of the United States?", answers:["1776", "1780", "1790", "1800"], correctAnswer:"1790"},
+                 {question:"Who was the first mayor of Philadelphia?", answers:["William Penn", "Griffith Jones", "Edward Shippen", "Humphrey Morrey"], correctAnswer:"Humphrey Morrey"},
+                 {question:"Philadelphia is a combination of two words from which language?", answers:["French", "Greek", "Hebrew", "Dutch"], correctAnswer:"Greek"},   
+                 {question:"Philadelphia is known as 'The city of ?", answers:["Terrible drivers", "Brotherly love", "Cheesesteaks", "Lights"], correctAnswer:"Brotherly love"}   
 ]
+
 
 // structure: questions, the global variable which is made up of several arrays, we take questions at the index 0, the first array, and grab the question obj there. that is the first line in this sequence. The first array contains 3 obj, question, answer and correct answer. to print the available answers, we look at the first array in the questions variable [0], then look for the obj answers, which is an array, and we look for the answers at given indexes 
 // renderQuestion();
@@ -96,7 +110,8 @@ questionButton4.textContent = (questions[currentQuestion].answers[3]);
 }
 
 buttons.addEventListener("click", function(event){
-
+  
+   
 if(event.target.matches("button")){
     console.log("clicked")
     // to check if answer clicked was correct answer check if value is the same as correct answer
@@ -104,21 +119,23 @@ if(event.target.matches("button")){
     console.log("value: " + event.target.innerText);
     console.log("Correct Answer: " + questions[currentQuestion].correctAnswer);
     
-    
+   
 }
+
 if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     answer.style.visibility = "visible";
     answer.textContent = "Correct"
     spanTime()
     score +=10
     console.log(score)
+    
    localStorage.setItem("score:", JSON.stringify(score))
 }
 if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
     answer.textContent = "Wrong!";
     timer -=5
-    
+   
     spanTime();
     
 
@@ -126,17 +143,22 @@ if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
 if (answer.style.visibility = "visible"){
     currentQuestion++;
     renderQuestion();
+    
+   
 }
-if (timer === 0){
 
-}
 })
 
+function timeCheck(){
+    
+}
 // incriment the number for currentQuestion when button pressed to render the next question
 
 function quizEnd (){
+    initial.style.visibility = "hidden";
+    quizDiv.style.visibility = "hidden";
     end.style.visibility = "visible";
-
+    finalScore.textContent = score;
 
 
 }
