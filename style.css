@@ -20,3 +20,8 @@ button {
     background-color: rgb(160, 160, 204);
     color: rgb(0, 0, 0);
 }
+#highScoreLink{
+    background-color:  rgb(168, 168, 167);
+    border: none;
+    font-size: 20px;
+}

@@ -14,14 +14,16 @@ let h2El = document.querySelector("#question");
 let h3El = document.querySelector("#done")
 let countdown = document.querySelector("#countdown")
 let answer = document.querySelector("#correct")
-let score = 0;
+let playerScore = 0;
 let end = document.querySelector("#quizEnd")
 let buttons = document.querySelector("#buttons")
 let finalScore = document.querySelector("#finalScore")
 let submit = document.querySelector("#submit")
+let scores = document.querySelector("#highScores")
+let tryAgain = document.querySelector("#tryAgain")
+let highScoreLink = document.querySelector("#highScoreLink")
 
 
-// will have to figure out where exactly to start timer, first page of the thing should have some kind of "start quiz" button, will have to call start timer after they click that button. might also have to make a function to disable timer if they answer all questions. Will definitely have to make a function that if timer === 0, update the page to the "timeout". here's your score, put in your initials to log your highscore, log to local storage 
 
 
 initialize()
@@ -37,6 +39,9 @@ function initialize(){
     end.style.visibility = "hidden";
     
 }
+
+
+
 init.addEventListener("click", function(event){
 
     if(event.target.matches("button")){
@@ -85,7 +90,7 @@ function startTimer() {
 
     }, 3000)}
    
-
+   
         // something about the initialize function or the event listener above is causing the current question to ++, needs re-structuring. added a blank line below for quick fix, will get dinged if left as is 
 let questions = [
                 {question:"Who named the city of Philadelphia?", answers:["William Penn", "George Washington", "Henry Hudson", "Leif Erikson"], correctAnswer:"William Penn"},
@@ -126,10 +131,10 @@ if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     answer.style.visibility = "visible";
     answer.textContent = "Correct"
     spanTime()
-    score +=10
-    console.log(score)
+    playerScore +=10
+    console.log(playerScore)
     
-   localStorage.setItem("score:", JSON.stringify(score))
+   localStorage.setItem("score:", JSON.stringify(playerScore))
 }
 if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
@@ -165,7 +170,7 @@ function quizEnd (){
     questionButton4.style.visibility = "hidden";
     questionButton1.style.visibility = "hidden";
     correct.style.visibility = "hidden";
-    finalScore.textContent ="Your Score: " + score;
+    finalScore.textContent ="Your Score: " + playerScore;
     submit.textContent = "Submit"
     let userName = document.getElementById('name').value
     localStorage.setItem("Name:", JSON.stringify(userName))
@@ -180,20 +185,39 @@ submit.addEventListener("click", function(event){
         
     
     }
-    document.location.href = "highScores.html";
+    viewHighScores();
     
     })
-
-
-
-
-// event listener to subtract x seconds from the timer on incorrect answer. this will have to be reformatted as currently it is just listening for a click, we want it to only subtract when an answer is wrong. will also have to change the number being subtracted, maybe -10. will have to give id so we can clear interval on quiz end. clearinterval(timerId) currently it is timeId
-// container.addEventListener("click",function(){
-//     timer-=5;
-//     currentIndex++;
-//     renderobject()
     
-// } )
+    highScoreLink.addEventListener("click", function(event){
+  
+   
+        if(event.target.matches("button")){
+           viewHighScores();
+            
+           
+        }})
+        
+function viewHighScores(){
+    initial.style.visibility = "hidden";
+    quizDiv.style.visibility = "hidden";
+    countdown.style.visibility = "hidden";
+    end.style.visibility = "hidden";
+    h2El.style.visibility = "hidden";
+    questionButton2.style.visibility = "hidden";
+    questionButton3.style.visibility = "hidden";
+    questionButton4.style.visibility = "hidden";
+    questionButton1.style.visibility = "hidden";
+    correct.style.visibility = "hidden";
+    highScoreLink.style.visibility = "hidden";
+    scores.textContent = "High Scores"
+}
+for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    
+}
+
+
 
 
 
