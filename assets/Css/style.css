@@ -5,7 +5,7 @@
 
 
 body {
-    background-color: rgb(248, 248, 211);
+    background-color: rgb(250, 250, 209);
 }
 header{
     display: flex;
@@ -16,7 +16,7 @@ header{
     align-items: center;
     justify-content: center;
     flex-direction: column;
- }
+}
 #buttons{
     display: flex;
     flex-direction: column;
@@ -26,51 +26,42 @@ header{
     width: 100%;
     height: 40px;
 }
-#buttons button:hover, button:hover {
+button:hover{
     background-color: rgb(162, 74, 245);
 }
 button {
-    background-color: rgb(9, 9, 216);
+    background-color: rgb(4, 4, 224);
     color: rgb(255, 255, 255);
-   margin: 8px;
+   margin: 10px;
+   border-radius: 6px;
    
 }
 #highScoreLink{
-    background-color:  rgb(248, 248, 211);
+    background-color: rgb(250, 250, 209);
     border: none;
-    font-size: 20px;
-    color:  rgb(9, 9, 216);
+    font-size: 24px;
+    color: rgb(4, 4, 224);
 }
 #countdown{
-    color:  rgb(9, 9, 216);
-    font-size: 30px;
-    
-    position: relative;
-    right: 150px;
-    top: 20px;
-}
-header button{
-    position: relative;
-    left: 120px;
-    top: 20px;
-}
-#done, #finalScore, #goAway{
-    color:  rgb(9, 9, 216);
+    color: rgb(4, 4, 224);
+    font-size: 24px;
 }
 #scorePage{
-    position:relative;
-    bottom: 180px;
+    position: fixed;
+    top: 40px;
 }
 #highScores{
-    font-size: 36px;
-    color:  rgb(9, 9, 216);
-}
-#allScores li{
     font-size: 24px;
-    color: rgb(9, 9, 216);
-    position: relative;
-    top: -20px;
 }
-button{
-    border-radius: 5px;
+#highScores, #allScores li{
+    color: rgb(4, 4, 224);
+}
+#done, #finalScore, #goAway{
+    color: rgb(4, 4, 224)
+}
+#done{font-size: 36px;
+
+}
+#finalScore, #goAway{
+    font-size: 24px;
 }
