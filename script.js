@@ -135,7 +135,7 @@ if (event.target.innerText === questions[currentQuestion].correctAnswer) {
 if (event.target.innerText != questions[currentQuestion].correctAnswer)  {
     answer.style.visibility = "visible";
     answer.textContent = "Wrong!";
-    timer -=5
+    timer -=20
    
     spanTime();
     
