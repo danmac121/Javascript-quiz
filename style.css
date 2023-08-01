@@ -10,7 +10,7 @@ header{
     display: flex;
     justify-content: space-between;
 }
-#initialize, #quiz, #quizEnd{
+#initialize, #quiz, #quizEnd, #scorePage{
     display: flex;
     align-items: center;
     justify-content: center;
